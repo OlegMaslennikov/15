@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Analytics;
 using UnityEngine;
 using TMPro;
 
@@ -89,5 +90,10 @@ public class UILogic : MonoBehaviour
         Pause();
         victoryPanel.active = true;
         victoryPanelTMP.GetComponent<TMP_Text>().text = ("15! Сделано ходов: " + _moveCounter + ". Потрачено времени: " + _minutes + ":" + _seconds);
+        Analytics.CustomEvent("gameOver", new Dictionary<string, object>
+        {
+            { "turns", _moveCounter},
+            { "timeInSeconds",  _minutes * 60 + _seconds }
+        });
     }
 }
